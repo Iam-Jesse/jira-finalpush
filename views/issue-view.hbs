@@ -2,7 +2,7 @@
 
     <form action="/issue/{{id}}" method="POST">
         {{#each result}}
-            <h6>{{this.ownerField.title}}</h6>
+            <h5>{{this.ownerField.title}}</h5>
             {{#each this.fieldContent}}
                 <div>
                     <input type="checkbox" name="value{{@index}}" value="{{this._id}}">
