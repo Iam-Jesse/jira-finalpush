@@ -1,0 +1,15 @@
+{{!< layout}}
+
+    <form action="/issue/{{id}}" method="POST">
+        {{#each result}}
+            <h3>{{this.ownerField.title}}</h3>
+            {{#each this.fieldContent}}
+                <div>
+                    <input type="checkbox" name="value{{@index}}" value="{{this._id}}">
+                    <label for="value{{@index}}">{{this.value}}</label>
+                </div>
+            {{/each}}
+        {{/each}}
+        <button type="submit">Submit</button>
+    </form>
+
