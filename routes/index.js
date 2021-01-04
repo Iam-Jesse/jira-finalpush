@@ -1,5 +1,5 @@
-import {createDbEntry, addFieldContent_Db} from '../util';
-import {Checkable, IssueTab} from '../models/Model';
+import {addFieldContent_Db} from '../util';
+import {IssueTab} from '../models/Model';
 
 export default function routes(app, addon) {
     // Redirect root path to /atlassian-connect.json,
@@ -26,7 +26,7 @@ export default function routes(app, addon) {
         );
     });
 
-    app.post('/webhooks', (req, res) => {
+    app.post('/webhooks', (req) => {
       addFieldContent_Db(req.body.issue)
     });
 
@@ -54,7 +54,7 @@ export default function routes(app, addon) {
       });
     });
 
-    app.post('/issue/:id', (req, res) => {
+    app.post('/issue/:id', (req) => {
       console.log(req.params.id);
       console.log(req.body);
       IssueTab.find({'fieldContent._id': {$in: req.body.value}})
