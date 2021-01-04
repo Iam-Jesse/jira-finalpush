@@ -1,4 +1,4 @@
-import {addFieldContent_Db} from '../util';
+import {createDbEntry, addFieldContent_Db} from '../util';
 import {IssueTab} from '../models/Model';
 
 export default function routes(app, addon) {
@@ -8,8 +8,8 @@ export default function routes(app, addon) {
     //     res.redirect('/atlassian-connect.json');
     // });
     
-    // createDbEntry('Richy', '');
-    // createDbEntry('Risky', '');
+    createDbEntry('From Glitch', '');
+    createDbEntry('Hey Glitches', '');
 
     // This is an example route used by "generalPages" module (see atlassian-connect.json).
     // Verify that the incoming request is authenticated with Atlassian Connect.
