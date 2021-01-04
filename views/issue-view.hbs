@@ -1,6 +1,6 @@
 {{!< layout}}
-
-    <form action="/issue/{{id}}" method="POST">
+<div>
+  <form action="/issue/{{id}}" method="POST">
         {{#each result}}
             <h5 class="headers">{{this.ownerField.title}}</h5>
             {{#each this.fieldContent}}
@@ -12,4 +12,6 @@
         {{/each}}
         <button type="submit">Submit</button>
     </form>
+</div>
+    
 
