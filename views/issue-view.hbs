@@ -2,11 +2,11 @@
 
     <form action="/issue/{{id}}" method="POST">
         {{#each result}}
-            <h5>{{this.ownerField.title}}</h5>
+            <h5 class="headers">{{this.ownerField.title}}</h5>
             {{#each this.fieldContent}}
                 <div>
                     <input type="checkbox" name="value{{@index}}" value="{{this._id}}">
-                    <label for="value{{@index}}">{{this.value}}</label>
+                    <label for="value{{@index}}" class="normal-text">{{this.value}}</label>
                 </div>
             {{/each}}
         {{/each}}
