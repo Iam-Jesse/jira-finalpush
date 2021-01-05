@@ -33,13 +33,11 @@ export const structureIssueDbEntry = (customIDs, issueFields) => {
                 content: issueFields[customID].split('\r\n')
                 .map(result => {
                   console.log('This is from the map function', result)
-                    if(result != ''){
-                        return result.trim();
-                    }
+                  return result.trim();
                 })
                 .filter(result => {
-                  console.log('result', typeof(result));
-                    return (typeof(result) != undefined);
+                    console.log('result', typeof(result));
+                    return (typeof(result) != 'undefined');
                 })
             });
         };
