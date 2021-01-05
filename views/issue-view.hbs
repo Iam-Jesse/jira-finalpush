@@ -10,30 +10,31 @@
                 </div>
             {{/each}}
         {{/each}}
-        <input type="hidden" 
+        <input type="hidden" value="{{id}}" id="hidden-input">
         <button type="submit" class="aui-button aui-button-primary all-buttons">Save</button>
     </form>
 </div>
 
 <script>
-  let pageUrl = windows.location.href;
-  let baseUrl = `${pageUrl.split('ngrok.io')[0]}ngrok.io`;
-  let url = `${baseUrl}/issue/`
+  const pageUrl = windows.location.href;
+  const baseUrl = `${pageUrl.split('ngrok.io')[0]}ngrok.io`;
+  const id = document.querySelector('#hidden-input').value;
+  const url = `${baseUrl}/issue/${id}`;
   
-  // const form = document.querySelector('#custom-form');
-  // const formData = new FormData(form);
-//   const url = windows.location.href;
+  const form = document.querySelector('#custom-form');
+  const formData = new FormData(form);
+  const url = windows.location.href;
   
-//   console.log(url);
+  console.log(url);
 
-//   const response = await fetch(url, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: formData
-//   });
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: formData
+  });
 
-//   const data = await response.json();
+  const data = await response.json();
 </script>
     
