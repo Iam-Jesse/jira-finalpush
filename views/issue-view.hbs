@@ -10,13 +10,15 @@
                 </div>
             {{/each}}
         {{/each}}
+        <input type="hidden" 
         <button type="submit" class="aui-button aui-button-primary all-buttons">Save</button>
     </form>
 </div>
 
 <script>
   let pageUrl = windows.location.href;
-  let url = pageUrl.split('ngrok.io')
+  let baseUrl = `${pageUrl.split('ngrok.io')[0]}ngrok.io`;
+  let url = `${baseUrl}/issue/`
   
   // const form = document.querySelector('#custom-form');
   // const formData = new FormData(form);
