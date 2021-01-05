@@ -1,6 +1,6 @@
 {{!< layout}}
 <div class="wrapper">
-  <form id="custom-form">
+  <form action="" method="POST" id="custom-form">
         {{#each result}}
             <h3 class="headers">{{this.ownerTitle}}</h3>
             {{#each this.fieldContent}}
@@ -26,15 +26,15 @@
   
   console.log(formData);
   
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  form.addEventListener('submit', async function () => {
+    this.preventDefault();
     
     const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: formData
+    body: JSON.stringify(formData)
     });
 
     const data = await response.json();
