@@ -7,3 +7,4 @@ node_modules
 views/*.js
 views/*.js.map
 views/node
+credentials.json
