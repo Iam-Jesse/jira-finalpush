@@ -67,7 +67,7 @@ export default function routes(app, addon) {
             if(req.body.value.includes((eachContent._id).toString())){
               eachContent.status = !eachContent.status;
               eachIssue.save().then((saved) => {
-                console.log(saved);
+                console.log('This is what was saved', saved);
                 res.json(saved);
               });
             }
