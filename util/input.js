@@ -32,15 +32,17 @@ export const structureIssueDbEntry = (customIDs, issueFields) => {
             field_and_content.push({customID: customID.split('_')[1], 
                 content: issueFields[customID].split('\r\n')
                 .map(result => {
+                  console.log('This is from the map function', result)
                     if(result != ''){
                         return result.trim();
                     }
                 })
                 .filter(result => {
+                  console.log('This is from the filter function', result)
                     return result != undefined
                 })
             });
-        };
+        };fuse
         });
 
     field_and_content.map(element=>{
