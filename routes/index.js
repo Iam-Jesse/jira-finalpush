@@ -8,8 +8,8 @@ export default function routes(app, addon) {
     //     res.redirect('/atlassian-connect.json');
     // });
     
-    // createDbEntry('Roxanne', '');
-    // createDbEntry('Sussana', '');
+    createDbEntry('Alarms', '');
+    createDbEntry('Events', '');
 
     // This is an example route used by "generalPages" module (see atlassian-connect.json).
     // Verify that the incoming request is authenticated with Atlassian Connect.

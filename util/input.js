@@ -38,6 +38,7 @@ export const structureIssueDbEntry = (customIDs, issueFields) => {
                     }
                 })
                 .filter(result => {
+                  console.log('', )
                   console.log('This is from the filter function', result)
                     return (result != undefined || result != '');
                 })
