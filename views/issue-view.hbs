@@ -1,23 +1,16 @@
 {{!< layout}}
-
-    <form action="/issue/{{id}}" method="POST">
+<div>
+  <form action="/issue/{{id}}" method="POST">
         {{#each result}}
-            <h3>{{this.ownerTitle}}</h3>
+            <h3 class="headers">{{this.ownerTitle}}</h3>
             {{#each this.fieldContent}}
                 <div>
                     <input type="checkbox" name="value" value="{{this._id}}">
-                    <label for="value">{{this.value}}</label>
+                    <label for="value" class="normal-text">{{this.value}}</label>
                 </div>
             {{/each}}
         {{/each}}
-        <input type="hidden" id="url">
         <button type="submit">Submit</button>
     </form>
-
-    <script>
-        let url = document.querySelector('#url');
-        window.onload = function() {
-            url.value = window.location.href;
-        };
-    </script>
-
+</div>
+    
