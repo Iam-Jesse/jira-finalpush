@@ -34,6 +34,10 @@
 }
 
 body {
-  background-color: 'white';
+  background-color: white;
   overflow: 'hidden';
+}
+
+.wrapper {
+  margin: 0px 15px;
 }
