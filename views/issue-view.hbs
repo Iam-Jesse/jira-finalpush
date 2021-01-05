@@ -24,14 +24,17 @@
   const form = document.querySelector('#custom-form');
   const formData = new FormData(form);
   
-  const response = await fetch(url, {
+  form.addEventListener('submit', () => {
+    const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: formData
+    });
+
+    const data = await response.json();
   });
 
-  const data = await response.json();
 </script>
     
