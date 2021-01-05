@@ -58,25 +58,26 @@ export default function routes(app, addon) {
 
     app.post('/issue/:id', (req, res) => {
       console.log(req.params.id);
-      console.log(req.body);
-      IssueTab.find({'fieldContent._id': {$in: req.body.value}})
-      .then(result => {
-        result.forEach(eachIssue => {
-          eachIssue.fieldContent.forEach(eachContent => {
-            if(req.body.value.includes((eachContent._id).toString())){
-              eachContent.status = !eachContent.status;
-              eachIssue.save().then((saved) => {
-                console.log(saved);
-                res.render('issue-view.hbs', {result:saved})
-              });
-            }
-          });
-        });
-      })
-      .catch(error => {
-        //handle error
-        console.log(error);
-      });
+      console.log('This is the request body', req.body);
+      // console.log(req.body);
+      // IssueTab.find({'fieldContent._id': {$in: req.body.value}})
+      // .then(result => {
+      //   result.forEach(eachIssue => {
+      //     eachIssue.fieldContent.forEach(eachContent => {
+      //       if(req.body.value.includes((eachContent._id).toString())){
+      //         eachContent.status = !eachContent.status;
+      //         eachIssue.save().then((saved) => {
+      //           console.log(saved);
+      //           res.render('issue-view.hbs', {result:saved})
+      //         });
+      //       }
+      //     });
+      //   });
+      // })
+      // .catch(error => {
+      //   //handle error
+      //   console.log(error);
+      // });
     });
 
     // Add additional route handlers here...
