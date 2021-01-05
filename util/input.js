@@ -39,10 +39,10 @@ export const structureIssueDbEntry = (customIDs, issueFields) => {
                 })
                 .filter(result => {
                   console.log('This is from the filter function', result)
-                    return result != undefined
+                    return (result != undefined || result != '');
                 })
             });
-        };fuse
+        };
         });
 
     field_and_content.map(element=>{
