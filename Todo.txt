@@ -12,3 +12,7 @@ Edit atlassian-connect.json before deployment
 Scenario : when there is no recommendation in the case that user created the request, how does it show in the issue view page
 Scenario: when issue is updated
 Scenario: when field is renamed
+
+Check why Jira field creates twice
+Protect every route with addon.authenticate()
+Protect ajax call from the browser
