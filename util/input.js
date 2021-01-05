@@ -19,6 +19,7 @@ export const createCustomField = (name, description) => {
       }`;
   
       return request.post('/field', bodyData)
+      .then(()=>{console.log('created a new field')})
       .catch(error => {
         //handle error
         console.error(error);
