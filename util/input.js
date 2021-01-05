@@ -33,7 +33,7 @@ export const structureIssueDbEntry = (customIDs, issueFields) => {
                 content: issueFields[customID].split('\r\n')
                 .filter(result => {
                   console.log('result', typeof(result));
-                  return result;
+                  return(result.trim !== '');
                 })
                 .map(result => {
                   console.log('This is from the map function', result)
