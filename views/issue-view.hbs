@@ -1,6 +1,6 @@
 {{!< layout}}
 <div class="wrapper">
-  <form action="" method="POST" id="custom-form">
+  <form action="/issue/{{id}}" method="POST" id="custom-form">
         {{#each result}}
             <h3 class="headers">{{this.ownerTitle}}</h3>
             {{#each this.fieldContent}}
@@ -22,19 +22,13 @@
   const url = `${baseUrl}/issue/${id}`;
   
   const form = document.querySelector('#custom-form');
-  const formData = new FormData(form);
   
-  console.log(formData);
-  
-  form.addEventListener('submit', async function () => {
-    this.preventDefault();
+  form.addEventListener('submit', async function (e) => {
+    e.preventDefault();
     
     const response = await fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formData)
+    body: new FormData(form)
     });
 
     const data = await response.json();
