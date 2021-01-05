@@ -69,7 +69,6 @@ export default function routes(app, addon) {
             if(req.body.value.includes((eachContent._id).toString())){
               eachContent.status = !eachContent.status;
               eachIssue.save().then((saved) => {
-                console.log('This is what was saved', saved);
                 resultArray.push(saved);
               });
             }
@@ -77,6 +76,7 @@ export default function routes(app, addon) {
         });
       })
       .then(() => {
+        console.log(resultArray);
         res.json(resultArray);
       })
       .catch(error => {
