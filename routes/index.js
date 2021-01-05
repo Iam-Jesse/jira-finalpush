@@ -34,6 +34,7 @@ export default function routes(app, addon) {
       console.log('This is the issue id',req.params.issueId);
       IssueTab.find({issueId: req.params.issueId}).lean().exec()
       .then(result => {
+        console.log(result);
           if(result.length > 0){
             res.render('issue-view.hbs', {result});
           }else{
