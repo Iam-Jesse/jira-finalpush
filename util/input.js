@@ -31,13 +31,13 @@ export const structureIssueDbEntry = (customIDs, issueFields) => {
         if(issueFields[customID] != null && typeof(issueFields[customID]) === 'string'){
             field_and_content.push({customID: customID.split('_')[1], 
                 content: issueFields[customID].split('\r\n')
+                .filter(result => {
+                  console.log('result', typeof(result));
+                  return result;
+                })
                 .map(result => {
                   console.log('This is from the map function', result)
                   return result.trim();
-                })
-                .filter(result => {
-                    console.log('result', typeof(result));
-                    return (typeof(result) != 'undefined');
                 })
             });
         };
