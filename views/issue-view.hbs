@@ -1,6 +1,6 @@
 {{!< layout}}
 <div class="wrapper">
-  <form action="/issue/{{id}}" method="POST" id="custom-form">
+  <form id="custom-form">
         {{#each result}}
             <h3 class="headers">{{this.ownerTitle}}</h3>
             {{#each this.fieldContent}}
@@ -16,7 +16,7 @@
 </div>
 
 <script>
-  const pageUrl = windows.location.href;
+  const pageUrl = window.location.href;
   const baseUrl = `${pageUrl.split('ngrok.io')[0]}ngrok.io`;
   const id = document.querySelector('#hidden-input').value;
   const url = `${baseUrl}/issue/${id}`;
@@ -24,7 +24,7 @@
   const form = document.querySelector('#custom-form');
   const formData = new FormData(form);
   
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const response = await fetch(url, {
