@@ -57,6 +57,8 @@ export default function routes(app, addon) {
     });
 
     app.post('/issue/:id', (req, res) => {
+      const resultArray = [];
+      
       console.log(req.params.id);
       console.log('This is the request body', req.body);
       console.log(req.body);
@@ -68,11 +70,14 @@ export default function routes(app, addon) {
               eachContent.status = !eachContent.status;
               eachIssue.save().then((saved) => {
                 console.log('This is what was saved', saved);
-                res.json(saved);
+                resultArray.push(saved);
               });
             }
           });
         });
+      })
+      .then(() => {
+        res.json(resultArray);
       })
       .catch(error => {
         //handle error
