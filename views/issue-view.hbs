@@ -1,6 +1,6 @@
 {{!< layout}}
 <div class="wrapper">
-  <form action="/issue/{{id}}" method="POST">
+  <form action="/issue/{{id}}" method="POST" id="custom-form">
         {{#each result}}
             <h3 class="headers">{{this.ownerTitle}}</h3>
             {{#each this.fieldContent}}
@@ -15,6 +15,11 @@
 </div>
 
 <script>
+  const form = document.querySelector('#custom-form');
+  const formData = new FormData(form);
+
+  formData.append('username', 'abc123');
+  formData.append('avatar', fileField.files[0]);
   const params = {
     
   }
@@ -24,7 +29,7 @@
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(params)
+    body: formData
   });
 
   const data = await response.json();
