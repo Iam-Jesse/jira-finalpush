@@ -1,17 +1,23 @@
 {{!< layout}}
-<div class="wrapper">
-  <form action="/issue/{{id}}" method="POST">
+
+    <form action="/issue/{{id}}" method="POST">
         {{#each result}}
-            <h5 class="headers">{{this.ownerField.title}}</h5>
+            <h3>{{this.ownerTitle}}</h3>
             {{#each this.fieldContent}}
                 <div>
-                    <input type="checkbox" name="value{{@index}}" value="{{this._id}}">
-                    <label for="value{{@index}}" class="normal-text">{{this.value}}</label>
+                    <input type="checkbox" name="value" value="{{this._id}}">
+                    <label for="value">{{this.value}}</label>
                 </div>
             {{/each}}
         {{/each}}
-        <button type="submit" class="ak-button ak-button__appearance-primary">Submit</button>
+        <input type="hidden" id="url">
+        <button type="submit">Submit</button>
     </form>
-</div>
-    
+
+    <script>
+        let url = document.querySelector('#url');
+        window.onload = function() {
+            url.value = window.location.href;
+        };
+    </script>
 

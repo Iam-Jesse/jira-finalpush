@@ -25,14 +25,15 @@ const issueTabSchema = new mongoose.Schema({
     fieldContent: [{
         value: String,
         status: {
-            type: String,
-            default: 'unchecked'
+            type: Boolean,
+            default: false
         }
     }],
     ownerField: {
         type: Schema.Types.ObjectId,
         ref: 'Checkable'
-    }
+    },
+    ownerTitle: String
 });
 
 export const IssueTab = mongoose.model('IssueTab', issueTabSchema);

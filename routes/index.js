@@ -1,5 +1,5 @@
 import {createDbEntry, addFieldContent_Db} from '../util';
-import {IssueTab} from '../models/Model';
+import {Checkable, IssueTab} from '../models/Model';
 
 export default function routes(app, addon) {
     // Redirect root path to /atlassian-connect.json,
@@ -8,8 +8,8 @@ export default function routes(app, addon) {
     //     res.redirect('/atlassian-connect.json');
     // });
     
-    createDbEntry('From Glitch', '');
-    createDbEntry('Hey Glitches', '');
+    // createDbEntry('Roxanne', '');
+    // createDbEntry('Sussana', '');
 
     // This is an example route used by "generalPages" module (see atlassian-connect.json).
     // Verify that the incoming request is authenticated with Atlassian Connect.
@@ -26,13 +26,13 @@ export default function routes(app, addon) {
         );
     });
 
-    app.post('/webhooks', (req) => {
+    app.post('/webhooks', (req, res) => {
       addFieldContent_Db(req.body.issue)
     });
 
     app.get('/issue/:issueId', (req, res) => {
       console.log('This is the issue id',req.params.issueId);
-      IssueTab.find({issueId: req.params.issueId}).populate('ownerField').lean().exec()
+      IssueTab.find({issueId: req.params.issueId}).lean().exec()
       .then(result => {
           if(result.length > 0){
             res.render('issue-view.hbs', {result});
@@ -44,21 +44,34 @@ export default function routes(app, addon) {
 
     app.get('/request/:issueId', (req, res) => {
       console.log('This is the issue id',req.params.issueId);
-      IssueTab.find({issueId: req.params.issueId}).populate('ownerField').lean().exec()
+      IssueTab.find({issueId: req.params.issueId}).lean().exec()
       .then(result => {
           if(result.length > 0){
             res.render('issue-view.hbs', {result, id: req.params.issueId});
           }else{
+            //handle empty output
             return;
           }
       });
     });
 
-    app.post('/issue/:id', (req) => {
+    app.post('/issue/:id', (req, res) => {
       console.log(req.params.id);
       console.log(req.body);
       IssueTab.find({'fieldContent._id': {$in: req.body.value}})
-      .then(res => console.log(res))
+      .then(result => {
+        result.forEach(eachIssue => {
+          eachIssue.fieldContent.forEach(eachContent => {
+            if(req.body.value.includes((eachContent._id).toString())){
+              eachContent.status = !eachContent.status;
+              eachIssue.save().then((saved) => {
+                console.log(saved);
+                res.render('issue-view.hbs', {result:saved})
+              });
+            }
+          });
+        });
+      })
       .catch(error => {
         //handle error
         console.log(error);

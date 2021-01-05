@@ -31,7 +31,7 @@ export const addFieldContent_Db = (issue) => {
                 Checkable.findOne({customId: customID})
                 .then(res => {
                     if(Object.entries(res).length > 0){
-                        IssueTab.create({issueId: issue.id, fieldContent: content, ownerField: res._id})
+                        IssueTab.create({issueId: issue.id, fieldContent: content, ownerField: res._id, ownerTitle: res.title})
                         .then(created => {
                             res.issue.push(created._id);
                             res.save()

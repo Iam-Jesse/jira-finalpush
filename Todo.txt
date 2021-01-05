@@ -1,7 +1,7 @@
 Conceal your credentials from credentials.json
 delete this todolist once empty
 Hide db credentials from app.js
-Handle errors
+Handle errors and empty output
 Change Db cluster and create new user before deployment
 Not Required: find out how to add an issue field to screens
 When creating a custom field, supply db name (provided by client) to the name parameter
@@ -12,6 +12,3 @@ Edit atlassian-connect.json before deployment
 Scenario : when there is no recommendation in the case that user created the request, how does it show in the issue view page
 Scenario: when issue is updated
 Scenario: when field is renamed
-
-//cloud part
-ensure you add addon.authenticate middleware to all your routes
