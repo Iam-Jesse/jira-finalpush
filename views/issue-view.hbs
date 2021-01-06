@@ -33,8 +33,8 @@
     body: new FormData(form)
     })
     .then(response => {
-      if(response.ok){
-        form.innerHTML = "Finally worked";
+      if(response){
+        document.body.innerHTML = "dodge this";
       }
     })
     .catch(error=> {

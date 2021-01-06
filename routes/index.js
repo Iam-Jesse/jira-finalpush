@@ -76,7 +76,7 @@ export default function routes(app, addon) {
       })
       .then(() => {
         console.log(resultArray);
-        res.send(resultArray);
+        res.send('<h1>This is so messed up</h1>');
       })
       .catch(error => {
         //handle error
