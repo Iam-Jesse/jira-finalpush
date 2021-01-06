@@ -32,8 +32,11 @@
     method: 'POST',
     body: new FormData(form)
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
+    .then(response => {
+      if(response.ok){
+        form.innerHTML = "Finally worked";
+      }
+    })
     .catch(error=> {
       //handle error
       console.log(error);
