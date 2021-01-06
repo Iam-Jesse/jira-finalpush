@@ -75,7 +75,7 @@ export default function routes(app, addon) {
         });
       })
       .then(() => {
-        res.send(outputAfterSaved(resultArray));
+        res.send('<div><h1>Try to work</h2><p>Display this</p></div>');
       })
       .catch(error => {
         //handle error
