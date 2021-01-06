@@ -69,14 +69,14 @@ export default function routes(app, addon) {
             if(req.body.value.includes((eachContent._id).toString())){
               eachContent.status = !eachContent.status;
               eachIssue.save();
-              resultArray.push(eachIssue);
+              resultArray.push(eachIssue.toObject());
             }
           });
         });
       })
       .then(() => {
         console.log(resultArray);
-        res.json(resultArray);
+        res.send(resultArray);
       })
       .catch(error => {
         //handle error
