@@ -1,5 +1,6 @@
 import {createDbEntry, addFieldContent_Db, outputAfterSaved} from '../util';
 import {Checkable, IssueTab} from '../models/Model';
+import path from 'path';
 
 export default function routes(app, addon) {
     // Redirect root path to /atlassian-connect.json,
@@ -75,7 +76,7 @@ export default function routes(app, addon) {
         });
       })
       .then(() => {
-        res.send(outputAfterSaved(resultArray, req.params.id));
+        res.sendFile(path.join(__dirname, 'onrequest.html'));
       })
       .catch(error => {
         //handle error
