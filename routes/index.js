@@ -76,7 +76,7 @@ export default function routes(app, addon) {
         });
       })
       .then(() => {
-        res.sendFile(path.join(__dirname, 'onrequest.html'));
+        res.sendFile(path.join(__dirname, '../', 'views', 'issue-view.hbs'));
       })
       .catch(error => {
         //handle error
