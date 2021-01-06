@@ -57,7 +57,7 @@ export const addFieldContent_Db = (issue) => {
 };
 
 export const outputAfterSaved = (resultArray, id) => {
-  let htmlContent = `<div class="wrapper"><form action="/issue/${id}" method="POST" id="custom-form">`;
+  let htmlContent = `<div style="margin: 0px 15px; overflow: hidden"><form action="/issue/${id}" method="POST" id="custom-form">`;
       resultArray.forEach(eachIssue => {
         htmlContent += `<h3 class="headers">${eachIssue.ownerTitle}</h3>`;
         eachIssue.fieldContent.forEach(eachFieldContent => {
@@ -69,6 +69,5 @@ export const outputAfterSaved = (resultArray, id) => {
       });
       htmlContent += `<input type="hidden" value="${id}" id="hidden-input">
       <button type="submit" class="aui-button aui-button-primary all-buttons">Save</button></form></div>`;
-  console.log('This is the html content', htmlContent);
   return htmlContent;
 };
