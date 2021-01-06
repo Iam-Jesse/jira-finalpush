@@ -1,4 +1,4 @@
-import {createDbEntry, addFieldContent_Db, outputAfterSaved} from '../util';
+import {createDbEntry, addFieldContent_Db} from '../util';
 import {Checkable, IssueTab} from '../models/Model';
 import path from 'path';
 

@@ -5,7 +5,7 @@
             <h3 class="headers">{{this.ownerTitle}}</h3>
             {{#each this.fieldContent}}
                 <div>
-                    <input type="checkbox" name="value" value="{{this._id}}" {{if}}{{else}}{{/if}}>
+                    <input type="checkbox" name="value" value="{{this._id}}" "{{#if this.status}}checked{{else}}{{/if}}">
                     <label for="value" class="normal-text">{{this.value}}</label>
                 </div>
             {{/each}}
