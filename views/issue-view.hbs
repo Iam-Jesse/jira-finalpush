@@ -5,7 +5,7 @@
             <h3 class="headers">{{this.ownerTitle}}</h3>
             {{#each this.fieldContent}}
                 <div>
-                    <input type="checkbox" name="value" value="{{this._id}}">
+                    <input type="checkbox" name="value" value="{{this._id}}" {{if}}{{else}}{{/if}}>
                     <label for="value" class="normal-text">{{this.value}}</label>
                 </div>
             {{/each}}
@@ -25,17 +25,10 @@
   
   form.addEventListener('submit', async function (e) => {
     e.preventDefault();
-  
-    const emptyArray = [];
     
     fetch(url, {
     method: 'POST',
     body: new FormData(form)
-    })
-    .then(response => {
-      if(response){
-        document.body.innerHTML = "dodge this";
-      }
     })
     .catch(error=> {
       //handle error
