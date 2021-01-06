@@ -25,14 +25,17 @@
   
   form.addEventListener('submit', async function (e) => {
     e.preventDefault();
+  
+    const emptyArray = [];
     
     const response = await fetch(url, {
     method: 'POST',
     body: new FormData(form)
     });
 
-    const data = await response.json();
-    console.log(data);
+    const data = await response;
+    console.log(data[0].fieldContent);
+    
   });
 
 </script>
