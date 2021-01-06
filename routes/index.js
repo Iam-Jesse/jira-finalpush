@@ -1,4 +1,4 @@
-import {createDbEntry, addFieldContent_Db} from '../util';
+import {createDbEntry, addFieldContent_Db, outputAfterSaved} from '../util';
 import {Checkable, IssueTab} from '../models/Model';
 
 export default function routes(app, addon) {
@@ -75,8 +75,7 @@ export default function routes(app, addon) {
         });
       })
       .then(() => {
-        console.log(resultArray);
-        res.send('<h1>This is so messed up</h1>');
+        res.send(outputAfterSaved(resultArray));
       })
       .catch(error => {
         //handle error

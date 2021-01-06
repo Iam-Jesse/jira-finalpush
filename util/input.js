@@ -71,13 +71,3 @@ export const getCustomIDs = (fields) => {
 
     return customIDs;
 };
-
-export const outputAfterSaved = (resultArray) => {
-  let htmlContent = '<div class="wrapper"><form action="/issue/{{id}}" method="POST" id="custom-form">';
-      resultArray.forEach(eachIssue => {
-        htmlContent += `<h3 class="headers">${eachIssue.ownerTitle}</h3>`;
-        eachIssue.fieldContent.forEach();
-      });
-      '<input type="hidden" value="{{id}}" id="hidden-input">'+
-      '<button type="submit" class="aui-button aui-button-primary all-buttons">Save</button></form></div>';
-};

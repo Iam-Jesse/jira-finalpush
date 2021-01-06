@@ -56,3 +56,18 @@ export const addFieldContent_Db = (issue) => {
     });
 };
 
+export const outputAfterSaved = (resultArray) => {
+  let htmlContent = '<div class="wrapper"><form action="/issue/{{id}}" method="POST" id="custom-form">';
+      resultArray.forEach(eachIssue => {
+        htmlContent += `<h3 class="headers">${eachIssue.ownerTitle}</h3>`;
+        eachIssue.fieldContent.forEach(eachFieldContent => {
+          htmlContent += `<div>
+                    <input type="checkbox" name="value" value="${eachFieldContent._id}">
+                    <label for="value" class="normal-text">${eachFieldContent.value}</label>
+                </div>`;
+        });
+      });
+      htmlContent += '<input type="hidden" value="{{id}}" id="hidden-input">'+
+      '<button type="submit" class="aui-button aui-button-primary all-buttons">Save</button></form></div>';
+  console.log('This is the html content', htmlContent);
+};
