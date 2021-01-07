@@ -5,13 +5,13 @@
             <h3 class="headers">{{this.ownerTitle}}</h3>
             {{#each this.fieldContent}}
                 <div>
-                  {{#if}}
-                  
+                  {{#if this.status}}
+                    <input type="checkbox" name="value" value="{{this._id}}" class="checkboxes" checked disabled>
+                    <label for="value" class="normal-text">{{this.value}}</label>                  
                   {{else}}
-                  
-                  {{/if}}
                     <input type="checkbox" name="value" value="{{this._id}}" class="checkboxes">
-                    <label for="value" class="normal-text">{{this.value}}</label>
+                    <label for="value" class="normal-text">{{this.value}}</label>                  
+                  {{/if}}
                 </div>
             {{/each}}
         {{/each}}
