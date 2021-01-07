@@ -23,11 +23,11 @@
   
   const form = document.querySelector('#custom-form');
   const formElems = form.elements
-  const allInputs = [];
+  let allInputs;
   
-  formElems.forEach(element => {
-    
-  })
+  allInputs = formElems.filter(element => {
+    return element ==
+  });
   
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
