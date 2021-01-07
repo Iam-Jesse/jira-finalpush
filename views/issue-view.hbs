@@ -22,17 +22,18 @@
   const url = `${baseUrl}/issue/${id}`;
   
   const form = document.querySelector('#custom-form');
-  const formElems = form.elements
+  const formElems = form.elements;
   let allInputs;
   
-  allInputs = formElems.filter(element => {
-    return element ==
+  formElems.forEach(element => {
+    if(element)
   });
   
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
-    console.log(formElems);
+    // console.log(formElems);
     
+    console.log(allInputs);
     
     // fetch(url, {
     // method: 'POST',
