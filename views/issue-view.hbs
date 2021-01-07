@@ -59,7 +59,7 @@
       allInputs = [];
       console.log(data);
       data.forEach(issueResult => {
-        document.querySelector(`input[value="${issueResult._id}"]`).disabled = true;
+        document.querySelector(`input[value="${issueResult}"]`).disabled = true;
       })
     })
     .catch(error=> {
