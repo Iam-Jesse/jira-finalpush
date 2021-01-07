@@ -69,11 +69,10 @@ export default function routes(app, addon) {
         result.forEach(eachIssue => {
           eachIssue.fieldContent.forEach(eachContent => {
             if(req.body.value.includes((eachContent._id).toString())){
-              eachIssue.updateOne({'eachContent.status': true});
+              result.updateOne({'fieldContent.status': true});
               resultArray.push(eachContent.toObject());
             }else{
-              eachContent.status = false;
-              eachIssue.save();
+              eachIssue.updateOne({status: false});
             }
           });
         });
