@@ -63,21 +63,23 @@ export default function routes(app, addon) {
       console.log(req.params.id);
       console.log('This is the request body', req.body);
       console.log(req.body);
-      IssueTab.find({'fieldContent._id': {$in: req.body.value}})
-      .then(result => {
-        result.forEach(eachIssue => {
-          eachIssue.fieldContent.forEach(eachContent => {
-            if(req.body.value.includes((eachContent._id).toString())){
-              eachContent.status = true;
-              eachIssue.save();
-              resultArray.push(eachContent.toObject());
-            }else{
-              eachContent.status = false;
-              eachIssue.save();
-            }
-          });
-        });
-      })
+      
+      IssueTab.find
+      // IssueTab.find({'fieldContent._id': {$in: req.body.value}})
+      // .then(result => {
+      //   result.forEach(eachIssue => {
+      //     eachIssue.fieldContent.forEach(eachContent => {
+      //       if(req.body.value.includes((eachContent._id).toString())){
+      //         eachContent.status = true;
+      //         eachIssue.save();
+      //         resultArray.push(eachContent.toObject());
+      //       }else{
+      //         eachContent.status = false;
+      //         eachIssue.save();
+      //       }
+      //     });
+      //   });
+      // })
       .then(() => {
         res.send(resultArray);
       })
