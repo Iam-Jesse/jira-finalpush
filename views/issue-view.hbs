@@ -23,11 +23,13 @@
   
   const form = document.querySelector('#custom-form');
   const formElems = form.elements;
-  let allInputs = {};
+  let elementsObj = {};
+  let allInputs = [];
   
   for(let i = 0 ; i < formElems.length ; i++){
       let item = formElems.item(i);
-      allInputs[item.name] = item.value;
+      elementsObj[item.name] = item.value;
+      allInputs.push(elementsObj);
   }
 
   
