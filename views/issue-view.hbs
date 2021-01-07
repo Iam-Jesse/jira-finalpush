@@ -28,8 +28,7 @@
   
   for(let i = 0 ; i < formElems.length ; i++){
       let item = formElems.item(i);
-      elementsObj[item.name] = item.value;
-      allInputs.push(elementsObj);
+      allInputs.push({item.name.toString(): item.value.toString()});
   }
 
   
