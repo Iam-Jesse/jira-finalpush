@@ -76,7 +76,7 @@ export default function routes(app, addon) {
         });
       })
       .then(() => {
-        res.render('issue-view', {id: req.params.id, result: resultArray});
+        res.send(resultArray);
       })
       .catch(error => {
         //handle error
