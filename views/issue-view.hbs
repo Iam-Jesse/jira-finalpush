@@ -25,11 +25,6 @@
   const checkboxes = document.querySelectorAll('input[type=checkbox]');
   let allInputs = [];
   
-  // formElems.forEach(element => {
-  //   if(element.name.includes('input')){
-  //     allInputs.push(element);
-  //   }
-  // });
   
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -43,16 +38,16 @@
     
     console.log(allInputs);
     
-    // fetch(url, {
-    // method: 'POST',
-    // body: new FormData(form)
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log(data))
-    // .catch(error=> {
-    //   //handle error
-    //   console.log(error);
-    // });
+    fetch(url, {
+    method: 'POST',
+    body: allInputs
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error=> {
+      //handle error
+      console.log(error);
+    });
   });
 
 </script>
