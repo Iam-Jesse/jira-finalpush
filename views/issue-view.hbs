@@ -5,7 +5,7 @@
             <h3 class="headers">{{this.ownerTitle}}</h3>
             {{#each this.fieldContent}}
                 <div>
-                    <input type="checkbox" name="value" value="{{this._id}}">
+                    <input type="checkbox" name="value" value="{{this._id}}" class="checkboxes">
                     <label for="value" class="normal-text">{{this.value}}</label>
                 </div>
             {{/each}}
@@ -28,9 +28,7 @@
   let relevantInputs = [];
   
   
-  for (let checkbox of checkboxes) {
-    allInputs.push(checkbox);
-  }
+  
   
   allInputs.forEach(checkbox => {
     relevantInputs.push(checkbox);
@@ -46,6 +44,12 @@
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     // console.log(formElems);
+    
+    for (let checkbox of checkboxes) {
+    let checked = checkbox.checked;
+    console.log(checked);
+    allInputs.push(checked);
+    }
     
     console.log(allInputs);
     
