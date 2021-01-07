@@ -58,7 +58,6 @@ export default function routes(app, addon) {
     });
 
     app.post('/issue/:id', (req, res) => {
-      const resultArray = [];
       
       console.log(req.params.id);
       console.log('This is the request body', req.body);
@@ -67,9 +66,8 @@ export default function routes(app, addon) {
       IssueTab.updateMany({'fieldContent._id': {$in: req.body.value}}, 
                           {$set: {"fieldContent.$[elem].status": true}},
                          {arrayFilters: [{'elem._id': {$in: req.body.value}}]})
-      .then((result) => {
-        console.log(result);
-        res.send(resultArray);
+      .then(() => {
+        res.send(req.body.value);
       })
       .catch(error => {
         //handle error
