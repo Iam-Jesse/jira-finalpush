@@ -27,14 +27,6 @@
   let allInputs = [];
   let relevantInputs = [];
   
-  
-  
-  
-  allInputs.forEach(checkbox => {
-    relevantInputs.push(checkbox);
-  })
-
-  
   // formElems.forEach(element => {
   //   if(element.name.includes('input')){
   //     allInputs.push(element);
@@ -46,9 +38,7 @@
     // console.log(formElems);
     
     for (let checkbox of checkboxes) {
-    let checked = checkbox.checked;
-    console.log(checked);
-    allInputs.push(checked);
+      if(checkbox.checked)
     }
     
     console.log(allInputs);
