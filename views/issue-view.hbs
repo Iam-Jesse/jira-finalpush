@@ -31,7 +31,7 @@
     // console.log(formElems);
     
     for (let checkbox of checkboxes) {
-      if(checkbox.checked){
+      if(checkbox.checked && !checkbox.disabled){
         allInputs.push(checkbox.value);
       }
     }
@@ -45,8 +45,13 @@
     }, 
     body: JSON.stringify({value: allInputs})
     })
-    .then(response => response.json())
+    .then(response => {
+      if(response.ok){
+        return response.json();
+      }
+    })
     .then(data => {
+      allInputs = [];
       console.log(data);
       data.forEach(issueResult => {
         if(issueResult.status){
