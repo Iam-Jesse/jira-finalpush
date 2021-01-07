@@ -64,7 +64,9 @@ export default function routes(app, addon) {
       console.log('This is the request body', req.body);
       console.log(req.body);
       
-      IssueTab.updateMany({'fieldContent._id': {$in: req.body.value}}, {'fieldContent.status': true})
+      // IssueTab.updateMany({'fieldContent._id': {$in: req.body.value}}, {'fieldContent.status': true})
+      
+      IssueTab.find({}, { $elemMatch: {'fieldContent._id': {$in: req.body.value} } })
       
       // IssueTab.find({'fieldContent._id': {$in: req.body.value}})
       // .then(result => {
@@ -79,8 +81,9 @@ export default function routes(app, addon) {
       //     });
       //   });
       // })
-      .then(() => {
-        res.send(resultArray);
+      .then((result) => {
+        console.log(result);
+        // res.send(resultArray);
       })
       .catch(error => {
         //handle error
