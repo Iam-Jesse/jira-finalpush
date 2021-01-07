@@ -46,7 +46,12 @@
     body: JSON.stringify({value: allInputs})
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+      console.log(data);
+      data.forEach(issueResult => {
+        
+      })
+    })
     .catch(error=> {
       //handle error
       console.log(error);

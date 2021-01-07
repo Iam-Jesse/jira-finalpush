@@ -70,7 +70,7 @@ export default function routes(app, addon) {
             if(req.body.value.includes((eachContent._id).toString())){
               eachContent.status = !eachContent.status;
               eachIssue.save();
-              resultArray.push(eachIssue.toObject());
+              resultArray.push(eachContent.toObject());
             }
           });
         });
