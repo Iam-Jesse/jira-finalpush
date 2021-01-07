@@ -64,7 +64,9 @@ export default function routes(app, addon) {
       console.log('This is the request body', req.body);
       console.log(req.body);
       
-      IssueTab.updateMany({'fieldContent._id': {$in: req.body.value}}, {$set: {"fieldContent"}: true})
+      IssueTab.updateMany({'fieldContent._id': {$in: req.body.value}}, 
+                          {$set: {"fieldContent.$[elem].status": true}},
+                         {arrayFilters: [{'._id': {$in: req.body.value}}]})
       
       // IssueTab.find({'fieldContent._id': {$in: req.body.value}})
       // .then(result => {
