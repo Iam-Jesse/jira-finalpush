@@ -23,9 +23,7 @@
   
   const form = document.querySelector('#custom-form');
   const checkboxes = document.querySelectorAll('input[type=checkbox]');
-  let elementsObj = {};
   let allInputs = [];
-  let relevantInputs = [];
   
   // formElems.forEach(element => {
   //   if(element.name.includes('input')){
@@ -38,7 +36,9 @@
     // console.log(formElems);
     
     for (let checkbox of checkboxes) {
-      if(checkbox.checked)
+      if(checkbox.checked){
+        allInputs.push(checkbox.value);
+      }
     }
     
     console.log(allInputs);
