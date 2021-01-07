@@ -64,19 +64,21 @@ export default function routes(app, addon) {
       console.log('This is the request body', req.body);
       console.log(req.body);
       
-      IssueTab.find({'fieldContent._id': {$in: req.body.value}})
-      .then(result => {
-        result.forEach(eachIssue => {
-          eachIssue.fieldContent.forEach(eachContent => {
-            if(req.body.value.includes((eachContent._id).toString())){
-              result.updateOne({'fieldContent.status': true});
-              resultArray.push(eachContent.toObject());
-            }else{
-              eachIssue.updateOne({status: false});
-            }
-          });
-        });
-      })
+      IssueTab.updateMany({'fieldContent._id': {$in: req.body.value}}, {'fieldContent.status': true})
+      
+      // IssueTab.find({'fieldContent._id': {$in: req.body.value}})
+      // .then(result => {
+      //   result.forEach(eachIssue => {
+      //     eachIssue.fieldContent.forEach(eachContent => {
+      //       if(req.body.value.includes((eachContent._id).toString())){
+      //         result.updateOne({'fieldContent.status': true});
+      //         resultArray.push(eachContent.toObject());
+      //       }else{
+      //         eachIssue.updateOne({status: false});
+      //       }
+      //     });
+      //   });
+      // })
       .then(() => {
         res.send(resultArray);
       })
