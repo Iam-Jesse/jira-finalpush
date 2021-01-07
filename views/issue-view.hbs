@@ -25,11 +25,16 @@
   const checkboxes = document.querySelectorAll('input[type=checkbox]');
   let elementsObj = {};
   let allInputs = [];
+  let relevantInputs = [];
   
   
   for (let checkbox of checkboxes) {
     allInputs.push(checkbox);
   }
+  
+  allInputs.forEach(checkbox => {
+    relevantInputs.push(checkbox.checked);
+  })
 
   
   // formElems.forEach(element => {
@@ -42,7 +47,7 @@
     e.preventDefault();
     // console.log(formElems);
     
-    console.log(allInputs);
+    console.log(relevantInputs);
     
     // fetch(url, {
     // method: 'POST',
