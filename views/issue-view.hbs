@@ -22,20 +22,28 @@
   const url = `${baseUrl}/issue/${id}`;
   
   const form = document.querySelector('#custom-form');
+  const formElems = form.elements
+  const allInputs = [];
+  
+  formElems.forEach(element => {
+    
+  })
   
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
+    console.log(formElems);
     
-    fetch(url, {
-    method: 'POST',
-    body: new FormData(form)
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error=> {
-      //handle error
-      console.log(error);
-    });
+    
+    // fetch(url, {
+    // method: 'POST',
+    // body: new FormData(form)
+    // })
+    // .then(response => response.json())
+    // .then(data => console.log(data))
+    // .catch(error=> {
+    //   //handle error
+    //   console.log(error);
+    // });
   });
 
 </script>
