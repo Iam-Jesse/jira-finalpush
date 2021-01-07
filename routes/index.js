@@ -68,9 +68,12 @@ export default function routes(app, addon) {
         result.forEach(eachIssue => {
           eachIssue.fieldContent.forEach(eachContent => {
             if(req.body.value.includes((eachContent._id).toString())){
-              eachContent.status = !eachContent.status;
+              eachContent.status = true;
               eachIssue.save();
               resultArray.push(eachContent.toObject());
+            }else{
+              eachContent.status = false;
+              eachIssue.save();
             }
           });
         });
