@@ -12,16 +12,14 @@ const checkableSchema = new mongoose.Schema({
     description: {
         type: String,
         default: ''
-    },
-    issue: [{
-            type:Schema.Types.ObjectId, 
-            ref: 'IssueTab'
-        }]
+    }
 });
 
 
 const issueTabSchema = new mongoose.Schema({
-    issueId: String,
+    issueId: {
+        type: String
+    },
     fieldContent: [{
         value: String,
         status: {
@@ -33,7 +31,25 @@ const issueTabSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Checkable'
     },
-    ownerTitle: String
+    ownerTitle: String,
+    approvalRequest: {
+        type: Boolean,
+        default: false
+    },
+    editor: [
+        {
+            timestamp: Number,
+            userId: String,
+            email: String,
+            displayName: String  
+        }
+    ],
+    approver: [{
+        timestamp: Number,
+        userId: String,
+        email: String,
+        displayName: String
+    }]
 });
 
 export const IssueTab = mongoose.model('IssueTab', issueTabSchema);

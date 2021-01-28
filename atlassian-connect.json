@@ -15,23 +15,12 @@
     "modules": {
         "generalPages": [
             {
-                "key": "hello-world-page-jira",
+                "key": "set-fields-configuration-jira",
                 "location": "system.top.navigation.bar",
                 "name": {
-                    "value": "Hello World"
+                    "value": "Dynamic Checkbox"
                 },
-                "url": "/hello-world",
-                "conditions": [{
-                    "condition": "user_is_logged_in"
-                }]
-            },
-            {
-                "key": "hello-world-page-confluence",
-                "location": "system.header/left",
-                "name": {
-                    "value": "Hello World"
-                },
-                "url": "/hello-world",
+                "url": "/inputs",
                 "conditions": [{
                     "condition": "user_is_logged_in"
                 }]
@@ -40,8 +29,13 @@
         "webhooks": [
             {
                 "event": "jira:issue_created",
-                "url": "/webhooks",
+                "url": "/issue-created",
                 "excludeBody": false
+            },
+            {
+                "event": "jira:issue_deleted",
+                "url": "/issue-deleted/{issue.id}",
+                "excludeBody": true
             }
           ],
           "webPanels": [
@@ -59,6 +53,12 @@
             {
                 "key": "sd-portal-request-view-details-content",
                 "url": "/request/{issue.id}"
+            }
+        ],
+        "serviceDeskPortalRequestViewPanels": [
+            {
+                "key": "sd-portal-request-view-content",
+                "url": "/request/{issue.id}/right"
             }
         ]
     }

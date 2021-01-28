@@ -1,0 +1,150 @@
+{{!< layout}}
+
+<div class="wrapper">
+  <div id="notice">
+    {{#unless closed}}
+      {{#if approvalStatus}}
+        <p>Your request to reset is awaiting approval</p>
+      {{/if}}
+    {{/unless}}
+  </div>
+
+  <form id="custom-form">
+      {{#each result}}
+          <h3 class="title">{{this.ownerTitle}}</h3>
+          {{#each this.fieldContent}}
+            {{#if this.status}}
+              <div class="form-check">
+                <label class="form-check-label normal-text">
+                  <input type="checkbox" class="form-check-input" name="value" value="{{this._id}}" checked disabled>{{this.value}}
+                </label>
+              </div>
+            {{else}}
+              {{#if ../../closed}}
+                <div class="form-check">
+                  <label class="form-check-label normal-text">
+                    <input type="checkbox" class="form-check-input" name="value" value="{{this._id}}" disabled>{{this.value}}
+                  </label>
+                </div>
+              {{else}}
+                <div class="form-check">
+                  <label class="form-check-label normal-text">
+                    <input type="checkbox" class="form-check-input" name="value" value="{{this._id}}">{{this.value}}
+                  </label>
+                </div>
+              {{/if}}
+            {{/if}}
+          {{/each}}
+      {{/each}}
+      <input type="hidden" value="{{id}}" id="hidden-input">
+
+      <div class="clearfix" style="margin-top: 20px;">
+        {{#unless closed}}
+          {{#if fieldStatus}}
+            <button type="submit" class="btn btn-primary button-color float-left" id="resetButton">Reset</button>
+          {{/if}}
+        <button type="submit" style="display: none;" class="btn btn-primary button-color float-left" id="resetButtonHidden">Reset</button>
+        <button type="submit" class="btn btn-primary button-color float-right">Save</button>
+        {{/unless}}
+      </div>
+  </form>
+
+  <div style="margin-top: 50px">
+    <p class="title">
+      Attachments
+    </p>
+    <div class="row">
+      {{#each attachments}}
+        <div class="col-md-6">
+          <image src="{{this.thumbnail}}">
+              <p class="label">
+                <a href="{{this.content}}">{{this.filename}}</a>
+              </p>
+            </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const pageUrl = window.location.href;
+  const baseUrl = `${pageUrl.split('ngrok.io')[0]}ngrok.io`;
+  const id = document.querySelector('#hidden-input').value;
+  const url = `${baseUrl}/issue/${id}`;
+  const editUrl = `${url}/edit`;
+  
+  const form = document.querySelector('#custom-form');
+  const resetButton = document.querySelector('#resetButton');
+  const checkboxes = document.querySelectorAll('input[type=checkbox]');
+  const title = document.querySelector('h3').innerText;
+  let allInputs = [];
+  
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    // console.log(formElems);
+    
+    for (let checkbox of checkboxes) {
+      if(checkbox.checked && !checkbox.disabled){
+        allInputs.push(checkbox.value);
+      }
+    }
+    
+    console.log(allInputs);
+
+    if(allInputs.length > 0){
+      fetch(url, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      }, 
+      body: JSON.stringify({value: allInputs})
+      })
+      .then(response => {
+        if(response.ok){
+        return response.json();
+        }
+      })
+      .then(data => {
+        allInputs = [];
+        console.log(data);
+        data.forEach(issueResult => {
+        document.querySelector(`input[value="${issueResult}"]`).disabled = true;
+        resetButtonHidden.style.display = "inline-block";
+      });
+    })
+    .catch(error=> {
+      //handle error
+      console.log(error);
+    });
+    }else{
+      return;
+    }
+  });
+
+  resetButton.addEventListener('click', () => {
+
+   AP.user.getCurrentUser(function({atlassianAccountId}) {
+      fetch(editUrl, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      }, 
+      body: JSON.stringify({title, user:atlassianAccountId})
+      })
+      .then(response => {
+        if(response.ok){
+        return response.json();
+        }
+      })
+      .then(({approvalRequested}) => {
+        if(approvalRequested){
+          document.querySelector('#approval').style.display = "block";
+        }
+    })
+    });
+  });
+
+</script>
+    

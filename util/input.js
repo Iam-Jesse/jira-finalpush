@@ -19,7 +19,6 @@ export const createCustomField = (name, description) => {
       }`;
   
       return request.post('/field', bodyData)
-      .then(()=>{console.log('created a new field')})
       .catch(error => {
         //handle error
         console.error(error);
@@ -71,3 +70,40 @@ export const getCustomIDs = (fields) => {
 
     return customIDs;
 };
+
+export const postComment = (issueId, title, displayName, view) => {
+
+  let message = (view === 'customer') ? `${displayName} wants to reset ${title}.` : `${displayName} approved your request.`;
+
+    const bodyData = `{
+        "body": {
+            "type": "doc",
+            "version": 1,
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "text": "${message}",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+      }`;
+    request.post(`/issue/${issueId}/comment`, bodyData)
+    .catch(error => {
+        //handle error
+        console.log(error);
+    })
+};
+
+export const getSLA = (issueId) => {
+  //change the base URL before production
+  return request.get(`https://jessite.atlassian.net/rest/servicedeskapi/request/${issueId}/sla`)
+  .catch(error => {
+    //handle error
+    console.log(error);
+  });
+}

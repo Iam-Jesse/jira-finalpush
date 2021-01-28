@@ -1,0 +1,30 @@
+{{!< layout}}
+
+<div>
+  {{#each allSLA}}
+    <div class="marginal">
+      <h3 class="header">
+        {{this.name}}
+      </h3>
+      <div class="row">
+        <div class="col-4">
+          <span class="normal-text"><span class="title">Goal: </span>{{this.goal}}</span>
+        </div>
+        <div class="col-8">
+          <span class="normal-text"><span class="title">Time Left: </span>{{this.remainingTime}}</span>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+  <h3 class="header">
+    Priority
+  </h3>
+  <div>
+    <img class="sc-kDhYZr dDjmed" src="https://jessite.atlassian.net/images/icons/priorities/medium.svg" width="16px" height="16px">
+    <span class="normal-text">
+      {{priority}}
+    </span>
+  </div>
+</div>
+
+

@@ -31,6 +31,7 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-hbs": "^2.3.4",
+    "express-validator": "^6.9.2",
     "helmet": "^4.1.1",
     "mongoose": "^5.11.9",
     "morgan": "^1.10.0",

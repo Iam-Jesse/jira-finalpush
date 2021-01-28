@@ -1,70 +1,67 @@
 {{!< layout}}
+
 <div class="wrapper">
-  <form id="custom-form">
-        {{#each result}}
-            <h3 class="headers">{{this.ownerTitle}}</h3>
-            {{#each this.fieldContent}}
-                <div>
-                  {{#if this.status}}
-                    <input type="checkbox" name="value" value="{{this._id}}" class="checkboxes" checked disabled>
-                    <label for="value" class="normal-text">{{this.value}}</label>                  
-                  {{else}}
-                    <input type="checkbox" name="value" value="{{this._id}}" class="checkboxes">
-                    <label for="value" class="normal-text">{{this.value}}</label>                  
-                  {{/if}}
-                </div>
-            {{/each}}
-        {{/each}}
-        <input type="hidden" value="{{id}}" id="hidden-input">
-        <button type="submit" class="aui-button aui-button-primary all-buttons">Save</button>
-    </form>
+  <div id="notice">
+    {{#if approvalStatus}}
+      <p>Approval is needed to reset <button id="approvalButton">Approve</button></p>
+    {{/if}}
+  </div>
+  
+  <form>
+    
+      {{#each result}}
+        <div class="marginal">
+          <h3 class="title">{{this.ownerTitle}}</h3>
+  
+          {{#each this.fieldContent}}
+            {{#if this.status}}
+              <div class="form-check">
+                <label class="form-check-label normal-text">
+                  <input type="checkbox" class="form-check-input" name="value" value="{{this._id}}" checked disabled>{{this.value}}
+                </label>
+              </div>
+            {{else}}
+              <div class="form-check">
+                <label class="form-check-label normal-text">
+                  <input type="checkbox" class="form-check-input" name="value" value="{{this._id}}" disabled>{{this.value}}
+                </label>
+              </div>
+            {{/if}}
+          {{/each}}
+        </div>
+      {{/each}}
+    
+    <input type="hidden" value="{{id}}" id="hidden-input">
+  </form>
+  <br>
+  <br>
 </div>
 
+
 <script>
+  let approvalButton = document.querySelector('#approvalButton');
   const pageUrl = window.location.href;
   const baseUrl = `${pageUrl.split('ngrok.io')[0]}ngrok.io`;
   const id = document.querySelector('#hidden-input').value;
-  const url = `${baseUrl}/issue/${id}`;
-  
-  const form = document.querySelector('#custom-form');
-  const checkboxes = document.querySelectorAll('input[type=checkbox]');
-  let allInputs = [];
-  
-  
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    // console.log(formElems);
-    
-    for (let checkbox of checkboxes) {
-      if(checkbox.checked && !checkbox.disabled){
-        allInputs.push(checkbox.value);
-      }
-    }
-    
-    console.log(allInputs);
-    
-    fetch(url, {
-    method: 'POST',
-    headers: {
-    "Content-Type": "application/json"
-    }, 
-    body: JSON.stringify({value: allInputs})
-    })
-    .then(response => {
-      if(response.ok){
-        return response.json();
-      }
-    })
-    .then(data => {
-      allInputs = [];
-      console.log(data);
-      data.forEach(issueResult => {
-        document.querySelector(`input[value="${issueResult}"]`).disabled = true;
+  const url = `${baseUrl}/issue/${id}/approve`;
+
+  approvalButton.addEventListener('click', () => {
+    AP.user.getCurrentUser(function({atlassianAccountId}) {
+      fetch(url, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      }, 
+      body: JSON.stringify({user:atlassianAccountId})
       })
-    })
-    .catch(error=> {
-      //handle error
-      console.log(error);
+      .then(response => {
+        if(response.ok){
+        return response.json();
+        }
+      })
+      .then(data => {
+        console.log(data);
+      })
     });
   });
 

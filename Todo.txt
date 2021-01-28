@@ -16,3 +16,18 @@ Scenario: when field is renamed
 Check why Jira field creates twice
 Protect every route with addon.authenticate()
 Protect ajax call from the browser
+
+Set conditions for webpanel to always display on issues page
+Fix disabled checkboxes in issue page
+Move scripts to javascript page
+Make edit button always appear whenever a status is true
+add who checked the box in the database
+add timestamp to box checking
+Investigate why multiple issues are created
+
+Do the css properly of all pages
+after field is created, find where to redirect to.
+disable every button after click
+checkable.find by user site
+associate issues to user sites too
+Not required: check if you can restify your APIS
