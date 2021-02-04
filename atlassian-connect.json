@@ -29,12 +29,12 @@
         "webhooks": [
             {
                 "event": "jira:issue_created",
-                "url": "/issue-created",
+                "url": "/issue",
                 "excludeBody": false
             },
             {
                 "event": "jira:issue_deleted",
-                "url": "/issue-deleted/{issue.id}",
+                "url": "/issue/{issue.id}?_method=DELETE",
                 "excludeBody": true
             }
           ],

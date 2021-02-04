@@ -25,27 +25,33 @@ export const createCustomField = (name, description) => {
       });
 };
 
+export const contentize = (content) => {
+  let contentArray = [];
+  
+  contentArray = content.split('\r\n')
+  .filter(result => {
+    return(result.trim() !== '');
+  })
+  .map(result => {
+    return result.trim();
+  });
+  
+  return objectify(contentArray);
+};
+
 export const structureIssueDbEntry = (customIDs, issueFields) => {
     let field_and_content = [];
     customIDs.forEach(customID => {
         if(issueFields[customID] != null && typeof(issueFields[customID]) === 'string'){
             field_and_content.push({customID: customID.split('_')[1], 
-                content: issueFields[customID].split('\r\n')
-                .filter(result => {
-                  console.log('result', typeof(result));
-                  return(result.trim() !== '');
-                })
-                .map(result => {
-                  console.log('This is from the map function', result)
-                  return result.trim();
-                })
+                content: contentize(issueFields[customID])
+            });
+        }else if(issueFields[customID] === null){
+          field_and_content.push({customID: customID.split('_')[1], 
+                content: ''
             });
         };
         });
-
-    field_and_content.map(element=>{
-        return [... element.content = objectify(element.content)];
-    });
         
     return field_and_content;
 };

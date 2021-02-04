@@ -61,3 +61,22 @@ body{
 .marginal {
   margin-bottom: 25px;
 }
+
+.noticeText {
+  color: #5e6c84;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.noticeText a {
+  color: #0052cc;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:focus {
+  text-decoration: none;
+  outline: none;
+}

@@ -11,6 +11,7 @@ import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import methodOverride from 'method-override';
 
 // atlassian-connect-express also provides a middleware
 import ace from 'atlassian-connect-express';
@@ -42,6 +43,7 @@ app.set('port', port);
 // Log requests, using an appropriate formatter by env
 const devEnv = app.get('env') === 'development';
 app.use(morgan(devEnv ? 'dev' : 'combined'));
+app.use(methodOverride('_method'));
 
 //connect to db
 const options = {

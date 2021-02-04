@@ -1,5 +1,31 @@
 import mongoose, { Schema } from 'mongoose';
 
+//appuser will be required.
+
+const userSchema = new mongoose.Schema({
+  appUser: {
+    type: String
+  },
+  userPreferences: {
+    attachment: {
+            type: Boolean,
+            default: false
+        },
+    priority: {
+            type: Boolean,
+            default: false
+        },
+    sla: {
+            type: Boolean,
+            default: false
+        }
+  },
+  issues: [{
+    type: Schema.Types.ObjectId,
+    ref: 'IssueTab'
+  }]
+});
+
 const checkableSchema = new mongoose.Schema({
     customId: {
         type:String,
@@ -12,9 +38,12 @@ const checkableSchema = new mongoose.Schema({
     description: {
         type: String,
         default: ''
-    }
+    },
+    issues: [{
+      type: Schema.Types.ObjectId,
+      ref: 'IssueTab'
+    }]
 });
-
 
 const issueTabSchema = new mongoose.Schema({
     issueId: {
@@ -49,8 +78,13 @@ const issueTabSchema = new mongoose.Schema({
         userId: String,
         email: String,
         displayName: String
-    }]
+    }],
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
+export const User = mongoose.model('User', userSchema);
 export const IssueTab = mongoose.model('IssueTab', issueTabSchema);
 export const Checkable = mongoose.model('Checkable', checkableSchema);

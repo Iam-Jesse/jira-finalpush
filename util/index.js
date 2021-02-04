@@ -2,12 +2,15 @@ import async from 'async';
 
 import request from './request';
 import {Checkable, IssueTab} from '../models/Model';
-import {createCustomField, structureIssueDbEntry, getCustomIDs, postComment, getSLA} from './input';
+import {createCustomField, structureIssueDbEntry, getCustomIDs, postComment, getSLA, contentize} from './input';
 
-export const createDbEntry = (title, description) => {    
+export const createDbEntry = (title, description, res) => {    
     createCustomField(title, description).then(({data:{schema: {customId}}}) => {
-        Checkable.create({customId, title, description})
-            .then(res => console.log(res))
+        Checkable.updateOne({$and: [{title, description}]}, {customId, title, description}, {upsert:true})
+            .then((result) => {
+                console.log(result);
+                res.send('Created Successfully');
+            })
             .catch(error => {
                 //handle error
                 console.log(error);
@@ -15,16 +18,6 @@ export const createDbEntry = (title, description) => {
     });
 };
 
-export const updateDbFieldDetials = (title, description, _id) => {    
-    Checkable.find({_id})
-        .then(res => {
-            re
-        })
-        .catch(error => {
-            //handle error
-            console.log(error);
-    });
-};
 
 export const enableEdit = (userId, issueId, title, res, view) => {
     let userObj;
@@ -74,6 +67,37 @@ export const enableEdit = (userId, issueId, title, res, view) => {
     .catch(error => console.log(error));
 }
 
+export const updateIssueDb = (issueId, ownerField, content, res) => {
+  
+  let contentized = (Array.isArray(content))? [] : '';
+  
+  if(Array.isArray(content)){
+    content.forEach(context => {
+      contentized.push(contentize(context));
+    });
+  }else{
+    contentized = contentize(content);
+  }
+  
+  if(Array.isArray(ownerField)){
+    for(let i=0; i < ownerField.length; i++){
+      IssueTab.updateOne({$and: [{issueId}, {ownerField: ownerField[i]}]}, {fieldContent: contentized[i]})
+      .then(() => {
+        //handle success
+        res.send('Issues updated successfully');
+      })
+      .catch(error => console.log(error));
+    }
+  }else{
+    IssueTab.updateOne({$and: [{issueId}, {ownerField: ownerField}]}, {fieldContent: contentized})
+    .then(() => {
+      //handle success
+      res.send('Issue updated successfully');
+    })
+    .catch(error => console.log(error));
+  }
+};
+
 export const addFieldContent_Db = (issue) => {
     const customIDs = getCustomIDs(issue.fields);
     let fields_and_content;
@@ -92,11 +116,17 @@ export const addFieldContent_Db = (issue) => {
                 Checkable.findOne({customId: customID})
                 .then(res => {
                     if(Object.entries(res).length > 0){
-                        IssueTab.updateOne({issueId: issue.id, ownerField: res._id, ownerTitle: res.title},
+                        IssueTab.updateOne({$and: [{issueId: issue.id}, {ownerField: res._id}, {ownerTitle: res.title}]},
                             {issueId: issue.id, fieldContent: content, ownerField: res._id, ownerTitle: res.title},
                             {upsert: true}
                         )
-                        .then(res => console.log('I just added this to database', res));
+                        .then(successful => {
+                          if(successful.upserted && successful.upserted.length > 0){
+                            res.issues.push(successful.upserted[0]._id);
+                            res.save()
+                            .then(() => console.log('I saved the new id'));
+                          }
+                        });
                     }
                 }); 
             }, (err) => {
@@ -116,7 +146,7 @@ export const addFieldContent_Db = (issue) => {
 export const getApprovalStatus = (arr) => {
     let approvalStatus = false;
     arr.forEach(issue => {
-        if(issue.approvalRequest === true){
+        if(issue.approvalRequest && issue.approvalRequest === true){
             console.log('This is the approval status', issue.approvalRequest);
             approvalStatus = true;
         }
@@ -173,7 +203,7 @@ export const fetchSLA = (issueId, res) => {
         }
         allSLA = allSLA.filter(eachSLA => eachSLA.goal !== 'Unspecified');
         console.log(allSLA);
-        return res.render('request-right-view', {allSLA, priority:name});
+        return res.render('request-right-view', {allSLA, priority:name, priorityImage: name.toLowerCase()});
       });
     });
   }

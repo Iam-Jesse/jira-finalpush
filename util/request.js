@@ -1,3 +1,14 @@
+// import express from 'express';
+// import ace from 'atlassian-connect-express';
+
+// const app = express();
+// const addon = ace(app);
+
+// const httpClient = req => addon.httpClient(req);
+
+// export default httpClient;
+
+
 import axios from 'axios';
 
 export default axios.create ({

@@ -12,6 +12,13 @@ Edit atlassian-connect.json before deployment
 Scenario : when there is no recommendation in the case that user created the request, how does it show in the issue view page
 Scenario: when issue is updated
 Scenario: when field is renamed
+App User is required
+generate jwt token
+make a success page you can redirect to
+Remove border from button on focus
+Fix Mongoose error, must match all the update conditions
+CSS expand field on click in issue view page
+***************** Work on user preferences after deployment of app ************************
 
 Check why Jira field creates twice
 Protect every route with addon.authenticate()
@@ -30,4 +37,3 @@ after field is created, find where to redirect to.
 disable every button after click
 checkable.find by user site
 associate issues to user sites too
-Not required: check if you can restify your APIS

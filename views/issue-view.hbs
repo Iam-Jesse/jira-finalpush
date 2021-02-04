@@ -3,67 +3,56 @@
 <div class="wrapper">
   <div id="notice">
     {{#if approvalStatus}}
-      <p>Approval is needed to reset <button id="approvalButton">Approve</button></p>
+      <p id="approvalDisplay" class="noticeText">Approval is needed to reset. <a href="#" id="approvalButton" onclick="issueView()">Approve</a></p>
     {{/if}}
   </div>
   
-  <form>
-    
+  {{#if empty}}
+    <form action="/issue?_method=PUT&jwt={{token}}" method="POST">
+  {{else}}
+      <form>
+  {{/if}}
+    {{#unless noCollection}}
       {{#each result}}
         <div class="marginal">
           <h3 class="title">{{this.ownerTitle}}</h3>
-  
-          {{#each this.fieldContent}}
-            {{#if this.status}}
-              <div class="form-check">
-                <label class="form-check-label normal-text">
-                  <input type="checkbox" class="form-check-input" name="value" value="{{this._id}}" checked disabled>{{this.value}}
-                </label>
-              </div>
-            {{else}}
-              <div class="form-check">
-                <label class="form-check-label normal-text">
-                  <input type="checkbox" class="form-check-input" name="value" value="{{this._id}}" disabled>{{this.value}}
-                </label>
-              </div>
-            {{/if}}
-          {{/each}}
+              {{#each this.fieldContent}}
+                {{#unless this}}
+                  <textarea class="form-control form-control-sm form-input" rows="5" name="description" style="border: none; background: none" placeholder="None"></textarea>
+                  <input type="hidden" name="ownerField" value="{{../this.ownerField}}">
+                  {{else}}
+                  {{#if this.status}}
+                    <div class="form-check">
+                      <label class="form-check-label normal-text">
+                        <input type="checkbox" class="form-check-input" name="value" value="{{this._id}}" checked disabled>{{this.value}}
+                      </label>
+                    </div>
+                  {{else}}
+                    <div class="form-check">
+                      <label class="form-check-label normal-text">
+                        <input type="checkbox" class="form-check-input" name="value" value="{{this._id}}" disabled>{{this.value}}
+                      </label>
+                    </div>
+                  {{/if}}
+                {{/unless}}
+              {{/each}}
         </div>
       {{/each}}
     
-    <input type="hidden" value="{{id}}" id="hidden-input">
+      <input type="hidden" name="issueId" value="{{id}}" id="hidden-input">
+      {{#if empty}}
+        <div class="clearfix" style="margin-top: 20px;">
+          <button type="submit" class="btn btn-primary button-color float-right" id="updateIssue">Save</button>
+        </div>
+      {{/if}}
+    {{else}}
+        <p class="normal-text">
+          Create fields in app settings, and add to issue create screen!
+        </p>
+    {{/unless}}
   </form>
   <br>
   <br>
 </div>
 
-
-<script>
-  let approvalButton = document.querySelector('#approvalButton');
-  const pageUrl = window.location.href;
-  const baseUrl = `${pageUrl.split('ngrok.io')[0]}ngrok.io`;
-  const id = document.querySelector('#hidden-input').value;
-  const url = `${baseUrl}/issue/${id}/approve`;
-
-  approvalButton.addEventListener('click', () => {
-    AP.user.getCurrentUser(function({atlassianAccountId}) {
-      fetch(url, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      }, 
-      body: JSON.stringify({user:atlassianAccountId})
-      })
-      .then(response => {
-        if(response.ok){
-        return response.json();
-        }
-      })
-      .then(data => {
-        console.log(data);
-      })
-    });
-  });
-
-</script>
     
