@@ -54,7 +54,7 @@ const options = {
   serverSelectionTimeoutMS: 5000, 
   socketTimeoutMS: 45000
 };
-mongoose.connect('mongodb+srv://Jesse_Igowe:%40jesse.I10@cluster0.gzvey.mongodb.net/JiraDB?retryWrites=true&w=majority', options).
+mongoose.connect(process.env.DATABASE, options).
 catch(error => {
   //handle errors
   console.log(error);
